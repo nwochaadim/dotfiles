@@ -159,6 +159,7 @@ noremap p "0p
 noremap d "1d
 noremap dd "1dd
 noremap x "0x
+noremap yy "*yy
 
 " Quick edit vimrc
 nmap <leader>ev :tabe $MYVIMRC<cr>
