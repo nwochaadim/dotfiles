@@ -143,23 +143,22 @@ nmap <silent> <Leader>tr :NERDTreeToggle<CR>
 " nnoremap O O<ESC>zza
 " nnoremap a a<ESC>zza
 
-" Delete text without cutting
-" nnoremap <leader>d "_d
-" xnoremap <leader>d "_d
-
-" Use alt keys to move text down
-nmap <C-j> :m+1<CR>
-nmap <C-k> :m-2<CR>
+" Use control keys to move text up and down
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Remap 0 key to go to beginning of a word
 nmap 0 ^
 
 " Remap d and dd to copy to blank register
 noremap p "0p
-" xnoremap d "_d
-" nnoremap dd "_d
-" nnoremap dd "_d
-" nnoremap xx "*d
+noremap d "1d
+noremap dd "1dd
+noremap x "0x
 
 " Quick edit vimrc
 nmap <leader>ev :tabe $MYVIMRC<cr>
