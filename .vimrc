@@ -1,4 +1,3 @@
-" map leader
 let mapleader = " "
 
 " configure vundle plugin installer
@@ -24,6 +23,7 @@ Plugin 'dhruvasagar/vim-zoom'         " zoom into vim panes
 Plugin 'pbrisbin/vim-mkdir'           " make dir with ease
 Plugin 'leafgarland/typescript-vim'   " typescript syntax higlighting
 Plugin 'valloric/youcompleteme'
+Plugin 'pedrohdz/vim-yaml-folds'      " Vim yaml folds
 
 " end the vundle config
 call vundle#end()            " required
@@ -155,10 +155,10 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 nmap 0 ^
 
 " Remap d and dd to copy to blank register
-noremap p "0p
+noremap p "*p
 noremap d "1d
 noremap dd "1dd
-noremap x "0x
+noremap x "*x
 noremap yy "*yy
 
 " Quick edit vimrc
@@ -186,7 +186,42 @@ map <Leader>n :call RenameFile()<cr>
 map <Leader>e :e <C-R>=escape(expand("%:p:h"),' ') . '/'<CR>
 map <Leader>sp :split <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
 map <Leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+map <Leader>d :silent !rm <C-R>=expand("%:p")<CR>
 
 " Copy to system clipboard
 map <Leader>co mmggVG"*y`m
 
+" Set foldmethod and unfold all text
+" set fdm=syntax
+
+" buffer mappings
+nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>b :bp<CR>
+nnoremap <Leader>f :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+
+" For auto indent while saving
+" augroup autoindent
+"   au!
+"   autocmd BufWritePre * :normal migg=G`i
+" augroup End
+
+
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+      \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
