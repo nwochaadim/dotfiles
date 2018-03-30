@@ -192,7 +192,8 @@ map <Leader>d :silent !rm <C-R>=expand("%:p")<CR>
 map <Leader>co mmggVG"*y`m
 
 " Set foldmethod and unfold all text
-" set fdm=syntax
+au vimenter *.json set fdm=syntax
+au vimenter *.yml, *.yaml set fdm=indent
 
 " buffer mappings
 nnoremap <Leader>l :ls<CR>
