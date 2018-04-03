@@ -82,6 +82,9 @@ let g:auto_save = 1  " enable AutoSave on Vim startup
 " Set Autosave save events
 let g:auto_save_events = ["WinLeave", "FocusLost"]
 
+" Fuzzy find hidden files
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
+
 " Close vim if the only window left open is nerdtree
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
