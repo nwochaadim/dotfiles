@@ -80,7 +80,7 @@ set showmatch
 let g:auto_save = 1  " enable AutoSave on Vim startup
 
 " Set Autosave save events
-let g:auto_save_events = ["WinLeave", "FocusLost"]
+" let g:auto_save_events = ["WinLeave", "FocusLost"]
 
 " Fuzzy find hidden files
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
@@ -229,3 +229,18 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
       \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+nnoremap <Leader>d. :call DeleteFileAndCloseBuffer()<CR>
+
+fun! DeleteFileAndCloseBuffer()
+  let choice = confirm("Delete file and close buffer?", "&Do it!\n&Nonono", 1)
+  if choice == 1 | call delete(expand('%:p')) | q! | endif
+endfun
+
+set number relativenumber
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
