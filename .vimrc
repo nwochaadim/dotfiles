@@ -24,6 +24,10 @@ Plugin 'pbrisbin/vim-mkdir'           " make dir with ease
 Plugin 'leafgarland/typescript-vim'   " typescript syntax higlighting
 Plugin 'valloric/youcompleteme'
 Plugin 'pedrohdz/vim-yaml-folds'      " Vim yaml folds
+Plugin 'merlinrebrovic/focus.vim'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'tpope/vim-surround'
+Plugin 'docunext/closetag.vim'
 
 " end the vundle config
 call vundle#end()            " required
@@ -84,6 +88,7 @@ let g:auto_save = 1  " enable AutoSave on Vim startup
 
 " Fuzzy find hidden files
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
+let g:closetag_html_style=1
 
 " Close vim if the only window left open is nerdtree
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -244,3 +249,7 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
+
+au Filetype html,xml source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
+
+nmap <Leader>ll :Limelight!!<CR>
