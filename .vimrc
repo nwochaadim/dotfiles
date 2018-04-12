@@ -28,6 +28,7 @@ Plugin 'merlinrebrovic/focus.vim'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-surround'
 Plugin 'docunext/closetag.vim'
+Plugin 'tommcdo/vim-exchange'
 
 " end the vundle config
 call vundle#end()            " required
@@ -253,3 +254,6 @@ augroup END
 au Filetype html,xml source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
 nmap <Leader>ll :Limelight!!<CR>
+
+" C-r being used by tmux. Remap with leader
+nmap <Leader>re <C-r>
