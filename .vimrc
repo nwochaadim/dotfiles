@@ -29,6 +29,15 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-surround'
 Plugin 'docunext/closetag.vim'
 Plugin 'tommcdo/vim-exchange'
+Plugin 'elixir-editors/vim-elixir'
+Plugin 'neovimhaskell/haskell-vim'
+Plugin 'mxw/vim-jsx'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'neoclide/vim-jsx-improve'
+Plugin 'w0rp/ale'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'junegunn/fzf.vim'                 " fuzzy finder
+" Plugin 'nwochaadim/git-remote-open'
 
 " end the vundle config
 call vundle#end()            " required
@@ -103,6 +112,14 @@ noremap <Leader>a :Ack <cword><CR>
 " Use rspec.vim
 let g:rspec_command = "VtrSendCommandToRunner rspec {spec}"
 
+" Use jsx
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+" ALE settings
+let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '.'
+let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+
 " RSpec.vim mappings
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
@@ -122,6 +139,10 @@ nnoremap <leader>dr :VtrDetachRunner<cr>
 nnoremap <leader>cr :VtrClearRunner<cr>
 nnoremap <leader>fc :VtrFlushCommand<cr>
 nnoremap <leader>sf :VtrSendFile<cr>
+
+"Remap vim keys
+nnoremap b] :bnext<cr>
+nnoremap b[ :bprev<cr>
 
 " Fuzzy Search bindings
 map <C-P> :FZF<CR>
@@ -188,6 +209,14 @@ function! RenameFile()
   endif
 endfunction
 
+" Delete current file
+function! DeleteFile()
+  exec ':silent !rm ' . shellescape(expand("%:p"))
+  redraw!
+  quit!
+  echo 'Deleted Current File!'
+endfunction
+
 map <Leader>n :call RenameFile()<cr>
 
 " Edit another file in the same directory as the current file
@@ -195,7 +224,7 @@ map <Leader>n :call RenameFile()<cr>
 map <Leader>e :e <C-R>=escape(expand("%:p:h"),' ') . '/'<CR>
 map <Leader>sp :split <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
 map <Leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
-map <Leader>d :silent !rm <C-R>=expand("%:p")<CR>
+map <Leader>d :call DeleteFile()<CR>
 
 " Copy to system clipboard
 map <Leader>co mmggVG"*y`m
@@ -248,12 +277,15 @@ set number relativenumber
 augroup numbertoggle
   autocmd!
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+  autocmd BufLeave,FocusLost * set norelativenumber
 augroup END
 
 au Filetype html,xml source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
-
 nmap <Leader>ll :Limelight!!<CR>
 
 " C-r being used by tmux. Remap with leader
 nmap <Leader>re <C-r>
+noremap $ g_
+
+" Disable youcompleteme
+" let b:ycm_largefile=1
