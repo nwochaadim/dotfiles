@@ -1,4 +1,6 @@
 let mapleader = " "
+let b:ycm_largefile = 1
+let g:loaded_youcompleteme = 1 " Disable you complete me
 
 " configure vundle plugin installer
 set nocompatible              " be improved, required
@@ -37,6 +39,15 @@ Plugin 'neoclide/vim-jsx-improve'
 Plugin 'w0rp/ale'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'junegunn/fzf.vim'                 " fuzzy finder
+Plugin 'fatih/vim-go'
+Plugin 'M4R7iNP/vim-inky'
+Plugin 'mattn/emmet-vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'peitalin/vim-jsx-typescript'
+Plugin 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plugin 'jparise/vim-graphql'
+" Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+Plugin 'gavocanov/vim-js-indent'
 " Plugin 'nwochaadim/git-remote-open'
 
 " end the vundle config
@@ -55,8 +66,6 @@ syntax on
 " display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
 
-filetype plugin indent on
-
 " Use tomorrow-night color schemes
 colorscheme Tomorrow-Night
 
@@ -72,8 +81,8 @@ set nowrap
 set tabstop=2
 set shiftwidth=2
 set expandtab
-set smartindent
-set autoindent
+" set smartindent
+" set autoindent
 
 " remove white spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
@@ -110,7 +119,7 @@ au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/yaml.vim
 noremap <Leader>a :Ack <cword><CR>
 
 " Use rspec.vim
-let g:rspec_command = "VtrSendCommandToRunner rspec {spec}"
+let g:rspec_command = "VtrSendCommandToRunner bundle exec rspec {spec}"
 
 " Use jsx
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
@@ -224,7 +233,7 @@ map <Leader>n :call RenameFile()<cr>
 map <Leader>e :e <C-R>=escape(expand("%:p:h"),' ') . '/'<CR>
 map <Leader>sp :split <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
 map <Leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
-map <Leader>d :call DeleteFile()<CR>
+" map <Leader>d :call DeleteFile()<CR>
 
 " Copy to system clipboard
 map <Leader>co mmggVG"*y`m
@@ -288,4 +297,21 @@ nmap <Leader>re <C-r>
 noremap $ g_
 
 " Disable youcompleteme
-" let b:ycm_largefile=1
+let b:ycm_largefile=1
+
+" Set coc node path
+" let g:coc_node_path = '/Users/andeladeveloper/.nvm/versions/node/v14.7.0/bin/node'
+
+" Enable syntax highlighting for JSDocs
+let g:javascript_plugin_jsdoc = 1
+
+" Enable syntax highting for NgDocs
+let g:javascript_plugin_ngdoc = 1
+
+" Enable syntax highlighting for Flow
+let g:javascript_plugin_flow = 1
+
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
